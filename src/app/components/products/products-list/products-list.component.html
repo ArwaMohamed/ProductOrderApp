@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-custom my-3" (click)="addNewProduct()" mat-raised-button >Add New Product</button>
+  </div>
+  <div class="row g-3  mt-5">
+    @for ( product of productsList; track product.ProductId) {
+      <div class="col-md-4" >
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    }
+  </div>
+</div>

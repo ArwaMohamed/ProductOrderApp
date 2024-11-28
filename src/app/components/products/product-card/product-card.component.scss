@@ -1,0 +1,36 @@
+.mat-mdc-card-header{
+  padding: 0;
+  .card-img-top{
+    border-radius: 12px 12px 0 0;
+  }
+}
+.mat-mdc-card-content{
+  .price{
+    color: #3db7ae;
+    font-weight: 700;
+  }
+  .addToCard{
+    background: #F44336;
+    color: #fffdfd;
+  }
+  .product-pieces{
+    font-size: 10px;
+  }
+  .edit mat-icon{
+    font-size: 14px;
+    margin: 0px 10px;
+    cursor: pointer;
+    display: contents;
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px #f44336;
+  }
+  50% {
+    box-shadow: 0 0 15px #f44336;
+  }
+  100% {
+    box-shadow: 0 0 5px #f44336;
+  }
+}

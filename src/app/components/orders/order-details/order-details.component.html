@@ -1,0 +1,78 @@
+<div class="container mt-4 shadow-sm" *ngIf="order(); else noOrder">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h3 class="text-center">Order Details</h3>
+      <mat-card>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Order ID:</strong> {{ order()?.OrderId }}</p>
+              <p><strong>Order Date:</strong> {{ order()?.OrderDate | date:'fullDate' }}</p>
+              <p><strong>Payment Type:</strong> {{ order()?.PaymentType }}</p>
+              <p><strong>Total Amount:</strong> <span class="amount">${{ order()?.TotalAmount }}</span></p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>User Name:</strong> {{ order()?.UserName }}</p>
+              <p><strong>Total Products:</strong> {{ order()?.ProductsNo }}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-12 mb-4">
+      <h3 class="text-center">Customer Details</h3>
+      <mat-card>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Name:</strong> {{ order()?.CustomerDetails?.Name }}</p>
+              <p><strong>Email:</strong> {{ order()?.CustomerDetails?.Email }}</p>
+              <p><strong>Phone:</strong> {{ order()?.CustomerDetails?.Phone }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Address:</strong> {{ order()?.CustomerDetails?.Address }}</p>
+              <p><strong>Register Date:</strong> {{ order()?.CustomerDetails?.RegisterDate | date:'mediumDate' }}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-12 mb-4">
+      <h3 class="text-center">Products Details</h3>
+      <mat-card>
+        <mat-card-content>
+          <table mat-table [dataSource]="order()?.ProductDetails" class="table table-border()ed table-hover">
+            <ng-container matColumnDef="ProductImg">
+              <th mat-header-cell *matHeaderCellDef>Image</th>
+              <td mat-cell *matCellDef="let product">
+                <img [src]="product.ProductImg" alt="Product Image" class="img-fluid rounded" style="max-width: 80px;">
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ProductName">
+              <th mat-header-cell *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let product">{{ product.ProductName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="ProductPrice">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let product"><span class="amount">${{ product.ProductPrice }}</span></td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['ProductImg', 'ProductName', 'ProductPrice']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['ProductImg', 'ProductName', 'ProductPrice'];"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<ng-template #noOrder>
+  <div class="container text-center mt-5">
+    <h3>No Order Found</h3>
+    <a routerLink="/orders" class="btn btn-primary my-3">Go Back to Orders List</a>
+    <p>Please select an order from the list.</p>
+  </div>
+</ng-template>

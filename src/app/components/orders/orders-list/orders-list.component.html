@@ -1,0 +1,69 @@
+<mat-card class="example-card pt-2" appearance="outlined">
+  <mat-card-header class="my-3">
+    <mat-card-title>Order History</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="example-container mat-elevation-z8">
+      @if (isLoadingResults) {
+      <div class="example-loading-shade">
+        <mat-spinner></mat-spinner>
+      </div>
+      }
+
+      <div class="example-table-container px-3">
+
+        <table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="created"
+          matSortDisableClear matSortDirection="desc">
+          <!-- Number Column -->
+          <ng-container matColumnDef="OrderId">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let row">{{row.OrderId}}</td>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="UserName">
+            <th mat-header-cell *matHeaderCellDef>User Name</th>
+            <td mat-cell *matCellDef="let row">{{row.UserName}}</td>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="ProductsNo">
+            <th mat-header-cell *matHeaderCellDef>Products No</th>
+            <td mat-cell *matCellDef="let row">{{row.ProductsNo}}</td>
+          </ng-container>
+          <!-- State Column -->
+          <ng-container matColumnDef="PaymentType">
+            <th mat-header-cell *matHeaderCellDef>Payment Type</th>
+            <td mat-cell *matCellDef="let row">
+              <span
+                class="status rounded f-w-600 p-y-4 f-s-12 rounded-pill d-flex justify-content-center align-items-center"
+                [class]="'status_' + (row.PaymentType | lowercase)">
+                {{ row.PaymentType | titlecase }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Created Column -->
+          <ng-container matColumnDef="OrderDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+              Order Date
+            </th>
+            <td mat-cell *matCellDef="let row">{{row.OrderDate | date}}</td>
+          </ng-container>
+          <ng-container matColumnDef="TotalAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              total Amount
+            </th>
+            <td mat-cell *matCellDef="let row">{{row.TotalAmount}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)" class="pointer"></tr>
+        </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[20,50, 100, 200]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>
